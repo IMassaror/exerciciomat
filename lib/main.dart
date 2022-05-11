@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_functions/cloud_functions.dart';
+import 'firebase_options.dart';
 
-void main() => runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
+  final functions = FirebaseFunctions.instance;
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -14,7 +23,9 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(title: const Text(_title)),
         body: Center(
           child: ElevatedButton(
-            onPressed: () {  },
+            onPressed: () async {
+              final result = await FirebaseFunctions.instance.httpsCallable('addMessage').call();
+            },
             child: Text("teste"),
           ),
         ),
