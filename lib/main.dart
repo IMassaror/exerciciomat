@@ -3,82 +3,24 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'firebase_options.dart';
+import 'credit_card_page.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MyApp());
-  final functions = FirebaseFunctions.instance;
+
+
+void main() {
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-  static const String _title = 'Flutter Code Sample';
-
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: _title,
-      home: Scaffold(
-        appBar: AppBar(title: const Text(_title)),
-        body: Center(
-          child: ElevatedButton(
-            onPressed: () async {
-              final result = await FirebaseFunctions.instance.httpsCallable('addMessage').call();
-            },
-            child: Text("teste"),
-          ),
-        ),
-
-      ),
-
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
+      home: CreditCardPage(),
     );
   }
 }
-
-
-class MyStatelessWidget extends StatelessWidget {
-  const MyStatelessWidget({Key? key}) : super(key: key);
-
-
-  @override
-  Widget build(BuildContext context) {
-
-
-;return Center(
-
-      child: Card(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const ListTile(
-
-              title: Text('É um card sapoha?'),
-              subtitle: Text('Teste de Card'),
-            ),
-
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                TextButton(
-                  child: const Text('Botão?'),
-                  onPressed: () {/* ... */},
-                ),
-
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-
-
-  }
-
-
-
-}
-
 
 
